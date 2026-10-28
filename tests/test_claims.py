@@ -49,6 +49,10 @@ def test_e1_arithmetic_mean_for_equal_distance():
     assert [d(x) for x in ari] == ["3,9", "27,1", "162,6"]
     assert [d(cells[s]["geometrisch"]["mean"]) for s in (0.2, 0.5, 1.0)] == ["1,9", "12,7", "60,5"]
     assert [d(cells[s]["quadratisch"]["mean"]) for s in (0.2, 0.5, 1.0)] == ["5,9", "42,8", "297,2"]
+    # Faustformel e^(σ²) − 1 (Grenzfall vieler lognormaler Posten): die Messung mit 20 Posten liegt darunter
+    for s, x in zip((0.2, 0.5, 1.0), ari):
+        assert x < 100 * (math.exp(s * s) - 1) < 1.1 * x, s
+    has("als Faustformel etwa wie e^(σ²) − 1", "mit 20 Posten gemessen liegen die Werte darunter")
     has("**3,9 % / 27,1 % / 162,6 %**", "geometrisch 1,9 / 12,7 / 60,5 %", "quadratisch 5,9 / 42,8 / 297,2 %", "um **27,1 %** über der Gesamtgeschwindigkeit, bei σ = 1,0 um **162,6 %**")
 
 
@@ -189,6 +193,8 @@ def test_e4_reversal_share_falls_with_the_layers():
     assert [d(100 * rows[l]["share"]["mean"], 3) for l in (2, 3, 4)] == ["1,675", "0,570", "0,175"] and d(100 * rows[6]["share"]["mean"], 3) == "0,017"
     assert rows[10]["hits"] == 6 and rows[10]["tables_per_seed"] * 4 == 4_000_000 and rows[2]["hits"] == 67_011
     assert d(100 * rows[2]["standard_error"], 3) == "0,006"
+    has("Er gilt für gleichverteilte 2 × 2 × 2-Tabellen und stammt aus einer Sekundärquelle", "unabhängige Nachrechnung mit mehr Stichproben liegt höher, gehört aber nicht zur Messreihe der Demo")
+    assert "etwa 8 %" not in README and "etwa +150 %" not in README
     assert abs(rows[2]["share"]["mean"] - 1 / 60) < 2 * rows[2]["standard_error"]               # Vergleichswert 1/60 (Sekundärquelle, nicht hergeleitet)
     assert d(100 / 60, 3) == "1,667"
     has("**1,675 / 0,570 / 0,175 / 0,017 %**", "bei l = 10 in 6 von 4.000.000", "Standardfehler 0,006 Prozentpunkte bei l = 2", "1/60 = 1,667 %", "1,675 % (1/60 = 1,667 %), dann 0,570 / 0,175 / 0,017 %")

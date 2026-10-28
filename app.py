@@ -1,7 +1,7 @@
 """Raten, Gewichte, Größenverzerrung: Welches Mittel gehört wozu? - interaktive Konzept-Demo
 Sebastian Hanisch - Operations Research und Machine Learning
 
-Stück 7 der Reihe „Mittelwerte und Lagemaße“ (optional). Lauffähig mit: streamlit run app.py
+Stück 7 der Reihe „Mittelwerte und Lagemaße“. Lauffähig mit: streamlit run app.py
 """
 
 import streamlit as st
@@ -98,16 +98,29 @@ with st.container(key="kopf"):
     st.title("⚖️ Raten, Gewichte, Größenverzerrung: Welches Mittel gehört wozu?")
 st.markdown(
     """
-**Stück 7 der Reihe „Mittelwerte und Lagemaße“ (optional).** Die Reihe fragt, welche Mitte zu welcher Frage passt. Hier geht es um Zahlen, die **durch etwas geteilt** sind (km/h, l/100 km, Wachstumsfaktor je Periode, Stück je Los, Quote je Standort).
+**Stück 7 der Reihe „Mittelwerte und Lagemaße“.** Die Reihe fragt, welche Mitte zu welcher Frage passt. Hier geht es um Zahlen, die **durch etwas geteilt** sind (km/h, l/100 km, Wachstumsfaktor je Periode, Stück je Los, Quote je Standort).
 Rote Linie: **Die Gesamtgröße ist das gewichtete Mittel der Einzelwerte, und die Nenner sind die Gewichte.** Das Beispiel: 50 und 100 km/h über je 10 km sind **66,67 km/h**, nicht 75 (Gesamtstrecke 20 km durch Gesamtzeit 0,3 h); über je eine Stunde sind es 75.
 Je nach Frage legt der Nenner fest, welches Mittel (harmonisch, geometrisch, arithmetisch) die richtige Gesamtgröße liefert. Gemessen wird, **was das falsche Mittel kostet**, warum **Wachstumspfade** dem Erwartungswert nicht folgen, wie sich **Größenverzerrung** zurückrechnen lässt und wie oft eine **Gesamtquote gegen alle Teilquoten** kippt.
-Alle Aufgaben sind **gewählt, keine Messung an echten Daten**.
+Alle Aufgaben sind **gewählt, keine Messung an echten Daten**. Wer die Idee zuerst ohne Fachbegriffe verstehen will, öffnet „💬 In einfachen Worten“.
 Abgrenzung: [bunching-demo](https://github.com/sebastian-hanisch/bunching-demo) (Wartezeit pro Fahrgast statt pro Bus, die Formel 1 + CV² steht dort), [konfundierung-demo](https://github.com/sebastian-hanisch/konfundierung-demo) (warum eine gemeinsame Ursache das Vorzeichen kippt),
 `lp-mitte-demo` (Stück 3: dort ist **p** der Exponent der Strecke; hier heißt der Exponent des Mittels **r**) und `mittelwert-median-demo` (Wurzel der Reihe: Mittel und Median).
 
 Weiter unten: fünf Experimente (**🔬 E1 bis E5**), **🚧 Wo die Annahmen enden** und **📐 Mathematische Formulierung**.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/raten-gewichte-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Fährt ein Wagen zwei gleich lange Teilstrecken, die erste langsam und die zweite schnell, liegt seine Durchschnittsgeschwindigkeit nicht in der Mitte der beiden Tempi: Die langsame Teilstrecke dauert länger und zählt deshalb mehr. Fuhr er mit beiden Tempi gleich lange, stimmt die Mitte dagegen. Dieselben Zahlen, zwei richtige Antworten, je nach Frage. Das passende Mittel gehört zum Nenner, also zu dem, wodurch geteilt wird.
+
+Die Demo rechnet das für Geschwindigkeit, Verbrauch, Wachstumsfaktoren, Losgrößen und Quoten durch und misst, was das falsche Mittel kostet. Alle Aufgaben sind gewählt, keine Messung an echten Daten.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/raten-gewichte-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 
 with st.expander("Was ein Mittel ist", expanded=True):
     st.markdown(
@@ -406,7 +419,7 @@ st.markdown(
 | **Stücke werden gleichverteilt gezogen** | Wird nicht jedes Stück gleich wahrscheinlich gezogen (etwa Fahrgäste, die selten fahren, antworten seltener), gilt der Faktor $1 + \\mathrm{CV}^2$ nicht. | Wartezeit pro Fahrgast: [bunching-demo](https://github.com/sebastian-hanisch/bunching-demo) |
 | **Keine leeren Lose** | Leere Lose sind in der Stücksicht unsichtbar: Das harmonische Mittel liefert das Mittel der **nichtleeren** Lose, nicht des Mittels über alle Lose. | – |
 | **Endliche zweite Momente** | Bei Pareto-Losgrößen mit $\\alpha \\le 2$ gibt es keinen Faktor und kein Mittel der Stücksicht; das arithmetische Mittel der Beobachtungen wächst mit der Zahl der Beobachtungen, mehr Daten helfen nicht. | – |
-| **Zufällige Tabellen mit gleichverteilten Zellen** | Der Anteil der Umkehr (E4) gilt für diesen Erzeuger. Echte Tabellen haben meist ungleiche Gewichte, weil die Gruppen verschieden in die Schichten laufen; das ist die Bedingung für die Umkehr. | Kausale Deutung: [konfundierung-demo](https://github.com/sebastian-hanisch/konfundierung-demo) |
+| **Zufällige Tabellen mit gleichverteilten Zellen** | Der Anteil der Umkehr (E4) gilt für diesen Erzeuger. Eine Umkehr braucht ungleiche Gewichte (bei gleichen Gewichten gibt es keine); ob echte Tabellen sie haben, zeigt die Demo nicht. | Kausale Deutung: [konfundierung-demo](https://github.com/sebastian-hanisch/konfundierung-demo) |
 | **Kopplung von Nachfrage und Quote im Modell** | E5 setzt die Kopplung κ_B und die Streuung der Nachfrage als Modellannahme. Ob sie in Ihren Daten besteht, zeigt die Demo nicht; sie zeigt nur, dass Gesamtquote und Mittel der Quoten dann verschieden ordnen. | – |
 | **Simulierte Daten, vier Seeds je Zelle** | Die angegebene Streuung ist die zwischen vier festen Zufalls-Seeds, kein Konfidenzintervall. | – |
     """
@@ -426,9 +439,10 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/raten-gewichte-erklaert.json, nicht von Hand ändern)
     st.markdown(
         r"""
-**Lesehilfe.** *Gegeben:* Posten $i = 1, \dots, n$ mit Zähler $a_i$ und Nenner $b_i > 0$ (Strecke und Zeit, Liter und Strecke) und der Einzelrate $x_i = a_i / b_i$. *Gesucht:* die Gesamtgröße und das Mittel, das sie wiedergibt.
+**Lesehilfe.** Gegeben sind Posten mit Zähler und Nenner (Strecke und Zeit, Liter und Strecke), Wachstumsfaktoren je Periode, Lose und Tabellen mit zwei Gruppen in Schichten. Gesucht ist das Mittel, das die wahre Gesamtgröße wiedergibt, und was ein anderes Mittel kostet.
 
 | Symbol | Bedeutung |
 |---|---|
@@ -441,6 +455,12 @@ with st.expander("📐 Mathematische Formulierung"):
 | $\mathrm{CV}$ | Variationskoeffizient der Losgrößen |
 | $q_{gs}$, $w_{gs}$ | Quote und Gewicht der Schicht $s$ in Gruppe $g$ |
 
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/raten-gewichte-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
+    st.markdown(
+        r"""
 **Gesamtrate.** Die Gesamtgröße ist die Summe der Zähler durch die Summe der Nenner:
 
 $$\bar x = \frac{\sum_i a_i}{\sum_i b_i}.$$
