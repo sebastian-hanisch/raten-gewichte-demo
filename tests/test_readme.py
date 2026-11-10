@@ -9,7 +9,7 @@ README = (ROOT / "README.md").read_text(encoding="utf-8")
 
 def test_required_sections_in_playbook_order():
     headings = re.findall(r"^## (.+)$", README, flags=re.M)
-    wanted = ["Warum dieses Problem", "Trägt das Stück über die Nachbarn hinaus?", "Modell", "Methodik", "Befunde (gemessen, keine Behauptungen)", "Hypothesen des Einzelplans (Ja/Nein nach eigener Messung)",
+    wanted = ["Warum dieses Problem", "Reicht das Stück über die Nachbarn hinaus?", "Modell", "Methodik", "Befunde (gemessen, keine Behauptungen)", "Hypothesen des Einzelplans (Ja/Nein nach eigener Messung)",
               "Befunde und Korrekturen gegenüber dem Plan", "Ehrliche Grenzen", "Verifikation", "Dateistruktur", "Bewusst nicht umgesetzt", "Lokal ausführen", "Tests ausführen"]
     positions = [headings.index(h) for h in wanted]
     assert positions == sorted(positions)

@@ -13,7 +13,7 @@ Abgrenzung (im Abgleich der READMEs gelesen): [bunching-demo](https://github.com
 
 Jedes Mittel ist ein gewichtetes Mittel, und die Frage legt die Gewichte fest. **Die Gesamtgröße einer Rate ist das mit den Nennern gewichtete arithmetische Mittel der Einzelraten**: Zeit, Strecke, Größe, Nachfrage, Gruppenanteil. Zwei Fahrten mit 50 und 100 km/h über je 10 km sind 20 km in 0,3 h, also **66,67 km/h**; über je eine Stunde sind es **75 km/h**. Dasselbe Datenpaar, zwei Antworten, und beide sind richtig für ihre Frage.
 
-Kernfrage: *Welches Mittel gehört zu welchem „pro“, und warum gibt dieselbe Tabelle je nach Gewicht zwei Antworten?* Fünf gemessene Haken tragen die Demo:
+Kernfrage: *Welches Mittel gehört zu welchem „pro“, und warum gibt dieselbe Tabelle je nach Gewicht zwei Antworten?* Fünf gemessene Haken prägen die Demo:
 
 1. **Das falsche Mittel kostet mit der Streuung überproportional** (als Faustformel etwa wie e^(σ²) − 1: das Verhältnis M₁/M₋₁ für sehr viele lognormale Posten nach dem Verhältnis M_r/M_0 des Expanders „📐 Mathematische Formulierung“; mit 20 Posten gemessen liegen die Werte darunter). Bei gleicher Strecke liegt das arithmetische Mittel der Geschwindigkeiten bei Streuung σ = 0,5 um **27,1 %** über der Gesamtgeschwindigkeit, bei σ = 1,0 um **162,6 %**.
 2. **Das Stichprobenmittel trifft den Erwartungswert nicht.** Bei den Faktoren 1,5 und 0,6 liegen nach 100 Perioden **86,4 %** der Pfade unter dem Start; das Mittel aus 10.000 Pfaden trifft den Erwartungswert (± 20 %) nur in **6,5 %** der Stichproben (Messwert aus 1.200 Stichproben mit einem Standardfehler von etwa 0,7 Prozentpunkten; eine unabhängige Nachrechnung mit mehr Stichproben liegt höher, gehört aber nicht zur Messreihe der Demo).
@@ -21,7 +21,7 @@ Kernfrage: *Welches Mittel gehört zu welchem „pro“, und warum gibt dieselbe
 4. **Bei Pareto-Losgrößen mit α ≤ 2 gibt es keine Rückrechnung über das arithmetische Mittel:** es wächst mit der Zahl der Beobachtungen.
 5. **Gesamtquote und Mittel der Quoten ordnen verschieden.** Bei gleicher wahrer Standortquote liegt Gruppe B in **81,3 %** der Vergleiche vorn, wenn man die Gesamtquote nimmt und die Nachfrage mit der Quote gekoppelt ist (κ_B = 0,7, Gruppe A ohne Kopplung, je 10 Standorte, σ_d = 1), im ungewichteten Mittel der Quoten in 50,2 %.
 
-## Trägt das Stück über die Nachbarn hinaus?
+## Reicht das Stück über die Nachbarn hinaus?
 
 **Teilweise, und ehrlich nur als Sammelstück.** Neu im Portfolio (Abgleich der READMEs, Stand 2026-10-24): die Potenzmittel-Familie und die Zuordnung „welches Mittel zu welcher Aufgabe“, die Kosten des falschen Mittels als Kurve (E1), das Stichprobenmittel der Pfade neben dem Erwartungswert (E2), die Rückrechnung von der Stücksicht auf die Größe pro Los (E3) und die Häufigkeit der Simpson-Umkehr (E4). Nicht neu sind der Verzerrungsfaktor 1 + CV² (steht in `bunching-demo`) und die Mechanik der Umkehr (`konfundierung-demo`). Es gibt **keinen einzelnen großen Befund** auf der Höhe der Stücke 3 bis 5, sondern einen gemeinsamen Blick (jedes Mittel ist ein gewichtetes Mittel, die Frage legt die Gewichte fest) und mehrere kleine gemessene Haken darin. Die Ampel bleibt gelb; die Zusammenlegung mit Stück 1 (ein Abschnitt „Mittel sind Gewichtung“ mit E1 bis E3) bliebe eine ehrliche Alternative.
 
@@ -76,7 +76,7 @@ Nummern wie in `mittelwerte-planung/STUECK-7-raten-gewichte.md`. Alle Zahlen wur
 | H3 | Das falsche Mittel kostet bei σ = 0,2 unter 6 %, bei 0,5 11 bis 43 %, bei 1,0 36 bis 297 % | **Ja** | siehe E1 |
 | H4 | km/l gemittelt und zurückgerechnet liegt 20,7 % (σ = 0,5) neben dem wahren l/100 km | **Ja** | 20,7 % (Aufgabe Verbrauch), 20,8 % (Aufgabe gleiche Zeit) |
 | H5 | Faktoren 1,5/0,6: Median-Pfad 0,9^(T/2), Pfade unter Start 62 / 75 / 86 / 95 % nach 10 / 20 / 100 / 200 Perioden | **Ja** | 62,3 / 74,8 / 86,4 / 94,8 % (exakt), Simulation höchstens 0,1 Prozentpunkte daneben |
-| H6 | Das Stichprobenmittel trifft 1,05^T nicht: 0,54 bei T = 100, 0,08 bei T = 200 (N = 10⁵); bei T = 60 trifft ein Mittel aus 10⁴ Pfaden in 33 % der Läufe ± 20 % | **Teilweise** | Der Wert bei T = 100 reproduziert sich nicht als Zahl: 0,79 mit Streuung 0,30 zwischen den vier Seeds (0,49 bis 1,22); T = 200: 0,05. Die **Trefferquote** trägt: 35,1 % bei T = 60, N = 10⁴, in zwei Pfadfamilien (Zweipunkt und lognormal). |
+| H6 | Das Stichprobenmittel trifft 1,05^T nicht: 0,54 bei T = 100, 0,08 bei T = 200 (N = 10⁵); bei T = 60 trifft ein Mittel aus 10⁴ Pfaden in 33 % der Läufe ± 20 % | **Teilweise** | Der Wert bei T = 100 reproduziert sich nicht als Zahl: 0,79 mit Streuung 0,30 zwischen den vier Seeds (0,49 bis 1,22); T = 200: 0,05. Die **Trefferquote** hält: 35,1 % bei T = 60, N = 10⁴, in zwei Pfadfamilien (Zweipunkt und lognormal). |
 | H7 | Ab σ = √(2 ln 1,05) = 0,312 schrumpft der typische Pfad trotz + 5 % im Mittel | **Ja** | kritisches σ = 0,312; typischer Faktor 1,0001 bei σ = 0,3124 (gemessen); 0,927 bei σ = 0,5 |
 | H8 | Größenverzerrung = 1 + CV² in allen Kulissen | **Ja** (kein Neuwert) | siehe E3, Tabelle der Faktoren |
 | H9 | Das harmonische Mittel der beobachteten Größen stellt das Mittel pro Los her (arithmetisch + 28 / + 172 / + 850 %), auch bei Pareto(2,2) | **Ja** | +28,4 / +171,5 / +845,2 % (n = 100) gegen +0,3 / +1,6 / +6,6 %; Pareto(2,2): +0,2 % |
